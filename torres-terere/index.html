@@ -1,0 +1,590 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b09">
+  <title>Torres Tereré | Pede Aí</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #050706, #111b14, #080b09);
+      color: #f5f5f5;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 15px 25px;
+      border-bottom: 1px solid #b9974b;
+      background: linear-gradient(120deg, #050505, #142019, #050505);
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #d6b65c;
+      text-shadow: 0 0 12px #b9974b55;
+    }
+
+    .logo span {
+      color: #e9e9e9;
+    }
+
+    .subtitulo {
+      color: #b8c9ba;
+      font-size: 13px;
+      margin-top: 9px;
+      letter-spacing: 2px;
+    }
+
+    .local {
+      color: #d6b65c;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1050px;
+      margin: auto;
+      padding: 22px 15px 40px;
+    }
+
+    .apresentacao {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .apresentacao h1 {
+      color: #d6b65c;
+      font-size: 23px;
+      margin-bottom: 9px;
+    }
+
+    .apresentacao p {
+      color: #c5c5c5;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 17px;
+    }
+
+    .produto {
+      background: linear-gradient(145deg, #18221b, #0b100d);
+      border: 1px solid #9c874b;
+      border-radius: 15px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 0 5px 18px #0008;
+    }
+
+    .produto-icone {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .produto h2 {
+      color: #e0c36c;
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .produto p {
+      color: #c4c4c4;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .preco {
+      color: #d8d8d8;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 13px 0;
+    }
+
+    .rotulo {
+      display: block;
+      color: #d6b65c;
+      font-size: 12px;
+      text-align: left;
+      margin-bottom: 7px;
+    }
+
+    .quantidade-atual {
+      width: 100%;
+      background: #fff;
+      color: #111;
+      border: 1px solid #c9a65b;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .opcoes-quantidade {
+      background: #fff;
+      border: 1px solid #c9a65b;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 5px;
+      box-shadow: 0 5px 15px #0008;
+    }
+
+    .opcoes-quantidade[hidden] {
+      display: none;
+    }
+
+    .opcoes-quantidade button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      color: #111;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .opcoes-quantidade button:last-child {
+      border-bottom: none;
+    }
+
+    .opcoes-quantidade button:active {
+      background: #e8f0e8;
+    }
+
+    .botao {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(100deg, #b9974b, #e4d18c);
+      color: #111;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .botao:hover {
+      filter: brightness(1.08);
+    }
+
+    .carrinho {
+      margin-top: 30px;
+      padding: 20px;
+      background: linear-gradient(145deg, #172019, #0b100d);
+      border: 1px solid #b9974b;
+      border-radius: 15px;
+    }
+
+    .carrinho h2 {
+      color: #e0c36c;
+      margin-bottom: 15px;
+      font-size: 21px;
+    }
+
+    .item-carrinho {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ffffff22;
+      font-size: 14px;
+    }
+
+    .remover {
+      background: #7e2929;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 9px;
+      cursor: pointer;
+    }
+
+    .total {
+      color: #e0c36c;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 18px;
+    }
+
+    .dados {
+      margin-top: 22px;
+    }
+
+    .dados h3 {
+      color: #d6b65c;
+      margin-bottom: 12px;
+    }
+
+    .dados label {
+      display: block;
+      color: #ddd;
+      font-size: 13px;
+      margin: 12px 0 6px;
+    }
+
+    .dados input,
+    .dados select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #a68c4b;
+      background: #fff;
+      color: #111;
+      font-size: 15px;
+    }
+
+    .finalizar {
+      width: 100%;
+      padding: 15px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 9px;
+      background: #168b48;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .finalizar:hover {
+      background: #20a85a;
+    }
+
+    .aviso {
+      color: #aaa;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 13px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px 10px;
+      color: #aaa;
+      font-size: 12px;
+      border-top: 1px solid #b9974b55;
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 25px;
+      }
+
+      .catalogo {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">TORRES <span>TERERÉ</span></div>
+  <div class="subtitulo">SABOR • QUALIDADE • TRADIÇÃO</div>
+  <div class="local">📍 Novo São Joaquim - MT</div>
+</header>
+
+<main>
+
+  <section class="apresentacao">
+    <h1>Nosso catálogo 🌿</h1>
+    <p>Escolha seu sabor favorito, selecione a quantidade<br>
+    e adicione ao carrinho para fazer seu pedido.</p>
+  </section>
+
+  <section class="catalogo">
+
+    <article class="produto" data-sabor="Pura Folha" data-gramas="250">
+      <div class="produto-icone">🍃</div>
+      <h2>Pura Folha</h2>
+      <p>O sabor tradicional do tereré.</p>
+
+      <span class="rotulo">Escolha a quantidade:</span>
+      <button class="quantidade-atual" type="button" onclick="abrirQuantidades(this)">250 g ▾</button>
+
+      <div class="opcoes-quantidade" hidden>
+        <button type="button" data-gramas="250" onclick="selecionarQuantidade(this)">250 g</button>
+        <button type="button" data-gramas="500" onclick="selecionarQuantidade(this)">500 g</button>
+        <button type="button" data-gramas="1000" onclick="selecionarQuantidade(this)">1 kg</button>
+      </div>
+
+      <div class="preco">R$ 12,50</div>
+      <button class="botao" type="button" onclick="adicionarAoCarrinho(this)">Adicionar ao carrinho</button>
+    </article>
+
+    <article class="produto" data-sabor="Menta Uva" data-gramas="250">
+      <div class="produto-icone">🍇</div>
+      <h2>Menta Uva</h2>
+      <p>Uma combinação refrescante e saborosa.</p>
+
+      <span class="rotulo">Escolha a quantidade:</span>
+      <button class="quantidade-atual" type="button" onclick="abrirQuantidades(this)">250 g ▾</button>
+
+      <div class="opcoes-quantidade" hidden>
+        <button type="button" data-gramas="250" onclick="selecionarQuantidade(this)">250 g</button>
+        <button type="button" data-gramas="500" onclick="selecionarQuantidade(this)">500 g</button>
+        <button type="button" data-gramas="1000" onclick="selecionarQuantidade(this)">1 kg</button>
+      </div>
+
+      <div class="preco">R$ 12,50</div>
+      <button class="botao" type="button" onclick="adicionarAoCarrinho(this)">Adicionar ao carrinho</button>
+    </article>
+
+    <article class="produto" data-sabor="Halls Preto" data-gramas="250">
+      <div class="produto-icone">🖤</div>
+      <h2>Halls Preto</h2>
+      <p>Um toque intenso e refrescante.</p>
+
+      <span class="rotulo">Escolha a quantidade:</span>
+      <button class="quantidade-atual" type="button" onclick="abrirQuantidades(this)">250 g ▾</button>
+
+      <div class="opcoes-quantidade" hidden>
+        <button type="button" data-gramas="250" onclick="selecionarQuantidade(this)">250 g</button>
+        <button type="button" data-gramas="500" onclick="selecionarQuantidade(this)">500 g</button>
+        <button type="button" data-gramas="1000" onclick="selecionarQuantidade(this)">1 kg</button>
+      </div>
+
+      <div class="preco">R$ 12,50</div>
+      <button class="botao" type="button" onclick="adicionarAoCarrinho(this)">Adicionar ao carrinho</button>
+    </article>
+
+    <article class="produto" data-sabor="Menta Fogo" data-gramas="250">
+      <div class="produto-icone">🔥</div>
+      <h2>Menta Fogo</h2>
+      <p>Uma experiência marcante e refrescante.</p>
+
+      <span class="rotulo">Escolha a quantidade:</span>
+      <button class="quantidade-atual" type="button" onclick="abrirQuantidades(this)">250 g ▾</button>
+
+      <div class="opcoes-quantidade" hidden>
+        <button type="button" data-gramas="250" onclick="selecionarQuantidade(this)">250 g</button>
+        <button type="button" data-gramas="500" onclick="selecionarQuantidade(this)">500 g</button>
+        <button type="button" data-gramas="1000" onclick="selecionarQuantidade(this)">1 kg</button>
+      </div>
+
+      <div class="preco">R$ 12,50</div>
+      <button class="botao" type="button" onclick="adicionarAoCarrinho(this)">Adicionar ao carrinho</button>
+    </article>
+
+  </section>
+
+  <section class="carrinho">
+    <h2>🛍️ Meu carrinho</h2>
+
+    <div id="itensCarrinho">
+      <p style="color:#aaa;font-size:14px;">Seu carrinho está vazio.</p>
+    </div>
+
+    <div class="total" id="total">Total: R$ 0,00</div>
+
+    <div class="dados">
+      <h3>📦 Dados do pedido</h3>
+
+      <label for="nome">Seu nome:</label>
+      <input type="text" id="nome" placeholder="Digite seu nome">
+
+      <label for="cidade">Sua cidade:</label>
+      <input type="text" id="cidade" placeholder="Ex.: Novo São Joaquim - MT">
+
+      <label for="pagamento">Forma de pagamento:</label>
+      <select id="pagamento">
+        <option value="Pix">Pix</option>
+        <option value="Dinheiro">Dinheiro</option>
+      </select>
+    </div>
+
+    <button class="finalizar" type="button" onclick="finalizarPedido()">
+      Finalizar pedido pelo WhatsApp
+    </button>
+
+    <p class="aviso">
+      Ao finalizar, você será direcionado ao WhatsApp da Torres Tereré
+      para enviar seu pedido.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  TORRES TERERÉ 🌿<br>
+  Novo São Joaquim - MT
+</footer>
+
+<script>
+  const carrinho = [];
+  const whatsapp = "5566981007105";
+
+  function dinheiro(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  }
+
+  function calcularPreco(gramas) {
+    return (gramas / 250) * 12.50;
+  }
+
+  function abrirQuantidades(botao) {
+    const menu = botao.nextElementSibling;
+    const estavaAberto = !menu.hidden;
+
+    document.querySelectorAll(".opcoes-quantidade").forEach(opcao => {
+      opcao.hidden = true;
+    });
+
+    menu.hidden = estavaAberto;
+  }
+
+  function selecionarQuantidade(botao) {
+    const produto = botao.closest(".produto");
+    const gramas = Number(botao.dataset.gramas);
+
+    produto.dataset.gramas = gramas;
+
+    const texto = gramas === 1000 ? "1 kg ▾" : gramas + " g ▾";
+
+    produto.querySelector(".quantidade-atual").textContent = texto;
+    produto.querySelector(".preco").textContent =
+      dinheiro(calcularPreco(gramas));
+
+    botao.closest(".opcoes-quantidade").hidden = true;
+  }
+
+  function adicionarAoCarrinho(botao) {
+    const produto = botao.closest(".produto");
+    const sabor = produto.dataset.sabor;
+    const gramas = Number(produto.dataset.gramas);
+    const preco = calcularPreco(gramas);
+
+    carrinho.push({
+      sabor: sabor,
+      gramas: gramas,
+      preco: preco
+    });
+
+    atualizarCarrinho();
+
+    alert(sabor + " adicionado ao carrinho!");
+  }
+
+  function removerItem(indice) {
+    carrinho.splice(indice, 1);
+    atualizarCarrinho();
+  }
+
+  function atualizarCarrinho() {
+    const area = document.getElementById("itensCarrinho");
+    const totalArea = document.getElementById("total");
+
+    area.innerHTML = "";
+
+    if (carrinho.length === 0) {
+      area.innerHTML =
+        '<p style="color:#aaa;font-size:14px;">Seu carrinho está vazio.</p>';
+    }
+
+    carrinho.forEach((produto, indice) => {
+      const item = document.createElement("div");
+      item.className = "item-carrinho";
+
+      const descricao = document.createElement("span");
+      const quantidade = produto.gramas === 1000
+        ? "1 kg"
+        : produto.gramas + " g";
+
+      descricao.textContent =
+        produto.sabor + " | " + quantidade + " | " + dinheiro(produto.preco);
+
+      const remover = document.createElement("button");
+      remover.className = "remover";
+      remover.type = "button";
+      remover.textContent = "Remover";
+      remover.onclick = () => removerItem(indice);
+
+      item.appendChild(descricao);
+      item.appendChild(remover);
+      area.appendChild(item);
+    });
+
+    const total = carrinho.reduce(
+      (soma, produto) => soma + produto.preco,
+      0
+    );
+
+    totalArea.textContent = "Total: " + dinheiro(total);
+  }
+
+  function finalizarPedido() {
+    if (carrinho.length === 0) {
+      alert("Adicione pelo menos um produto ao carrinho.");
+      return;
+    }
+
+    const nome = document.getElementById("nome").value.trim();
+    const cidade = document.getElementById("cidade").value.trim();
+    const pagamento = document.getElementById("pagamento").value;
+
+    if (!nome || !cidade) {
+      alert("Preencha seu nome e sua cidade.");
+      return;
+    }
+
+    let mensagem = "NOVO PEDIDO - TORRES TERERÉ\n\n";
+    mensagem += "Cliente: " + nome + "\n";
+    mensagem += "Cidade: " + cidade + "\n";
+    mensagem += "Pagamento: " + pagamento + "\n\n";
+    mensagem += "PRODUTOS:\n";
+
+    carrinho.forEach((produto, indice) => {
+      const quantidade = produto.gramas === 1000
+        ? "1 kg"
+        : produto.gramas + " g";
+
+      mensagem +=
+        (indice + 1) + ". " +
+        produto.sabor + " - " +
+        quantidade + " - " +
+        dinheiro(produto.preco) + "\n";
+    });
+
+    const total = carrinho.reduce(
+      (soma, produto) => soma + produto.preco,
+      0
+    );
+
+    mensagem += "\nTOTAL: " + dinheiro(total);
+
+    const url = "https://wa.me/" + whatsapp +
+      "?text=" + encodeURIComponent(mensagem);
+
+    window.location.href = url;
+  }
+</script>
+
+</body>
+</html>
