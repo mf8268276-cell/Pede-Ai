@@ -1,0 +1,486 @@
+ 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erva Verde 🌿 | Tereré</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #eaffdf;
+  background:
+    radial-gradient(ellipse at top right, #bef599d9, transparent 42%),
+    radial-gradient(ellipse at bottom left, #529b4db3, transparent 45%),
+    linear-gradient(135deg, #071b12, #174c2d, #a8df8a);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 35px 15px;
+  background: linear-gradient(120deg, #071b12, #245c35, #b3ed91);
+  border-bottom: 2px solid #b9f49b;
+}
+
+header h1 { font-size: 34px; letter-spacing: 3px; }
+header p { color: #d7ffc5; }
+
+main {
+  width: min(950px, 92%);
+  margin: 25px auto;
+}
+
+h2 { color: #c3f5a9; }
+
+.intro { text-align: center; margin-bottom: 28px; }
+
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.produto {
+  background: rgba(5, 30, 18, 0.92);
+  border: 1px solid #91d87a;
+  border-radius: 16px;
+  padding: 17px;
+  box-shadow: 0 5px 18px #071b1244;
+}
+
+.produto h3 { color: #c3f5a9; margin-top: 0; }
+
+label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 9px;
+  border: 1px solid #91d87a;
+  background: #f5ffef;
+  color: #153b25;
+  font-size: 16px;
+}
+
+textarea { resize: vertical; }
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.adicionar {
+  width: 100%;
+  margin-top: 14px;
+  background: linear-gradient(90deg, #a9ec87, #d8ffb9);
+  color: #10351f;
+}
+
+.carrinho, .dados {
+  margin-top: 25px;
+  background: #f2ffe9;
+  color: #153b25;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.carrinho h2, .dados h2 {
+  color: #174a2b;
+  margin-top: 0;
+}
+
+.item-carrinho {
+  border-bottom: 1px solid #d0e5c6;
+  padding: 12px 0;
+}
+
+.item-carrinho button {
+  margin-top: 7px;
+  background: #e2efda;
+  color: #174a2b;
+}
+
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.whatsapp {
+  width: 100%;
+  background: #168b45;
+  color: white;
+  font-size: 16px;
+  padding: 15px;
+}
+
+.limpar {
+  width: 100%;
+  margin-top: 10px;
+  background: #dcebd5;
+  color: #153b25;
+}
+
+.aviso {
+  font-size: 13px;
+  color: #52705a;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 12px;
+  color: #eaffdf;
+}
+
+@media (max-width: 520px) {
+  header h1 { font-size: 28px; }
+  .produtos { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌿 ERVA VERDE</h1>
+  <p>Seu tereré, seu momento! 🧉</p>
+  <p>🍃 Frescor e sabor em cada cuia</p>
+</header>
+
+<main>
+  <div class="intro">
+    <h2>Escolha suas ervas</h2>
+    <p>Selecione o sabor, o peso e monte seu pedido.</p>
+  </div>
+
+  <div class="produtos" id="produtos"></div>
+
+  <section class="carrinho">
+    <h2>🛒 Meu carrinho</h2>
+
+    <div id="itens">Seu carrinho está vazio.</div>
+
+    <div class="total">
+      Total: <span id="total">R$ 0,00</span>
+    </div>
+
+    <button class="limpar" onclick="limparCarrinho()">
+      Limpar carrinho
+    </button>
+  </section>
+
+  <section class="dados">
+    <h2>📋 Dados para finalizar o pedido</h2>
+
+    <form id="formPedido">
+      <label for="nome">Nome completo:</label>
+      <input id="nome" type="text"
+        placeholder="Digite seu nome completo" required>
+
+      <label for="cidade">Cidade:</label>
+      <input id="cidade" type="text"
+        placeholder="Ex.: Sobral - CE" required>
+
+      <label for="modalidade">Como deseja receber?</label>
+      <select id="modalidade" required>
+        <option value="Entrega">🛵 Entrega</option>
+        <option value="Retirada no local">📍 Retirada no local</option>
+      </select>
+
+      <div id="camposEntrega">
+        <label for="bairro">Bairro:</label>
+        <input id="bairro" type="text"
+          placeholder="Digite seu bairro">
+
+        <label for="endereco">Rua, número e complemento:</label>
+        <input id="endereco" type="text"
+          placeholder="Endereço para entrega">
+      </div>
+
+      <label for="pagamento">Forma de pagamento:</label>
+      <select id="pagamento" required>
+        <option value="Pix">💠 Pix</option>
+        <option value="Dinheiro">💵 Dinheiro</option>
+      </select>
+
+      <div id="campoTroco" hidden>
+        <label for="troco">Precisa de troco para quanto?</label>
+        <select id="troco">
+          <option value="Não precisa de troco">Não preciso de troco</option>
+          <option value="R$ 20">R$ 20</option>
+          <option value="R$ 50">R$ 50</option>
+          <option value="R$ 100">R$ 100</option>
+          <option value="Outro valor">Outro valor (combinar pelo WhatsApp)</option>
+        </select>
+      </div>
+
+      <label for="observacoes">Observações (opcional):</label>
+      <textarea id="observacoes" rows="3"
+        placeholder="Alguma informação sobre seu pedido?"></textarea>
+
+      <button class="whatsapp" type="submit">
+        📲 Enviar pedido pelo WhatsApp
+      </button>
+    </form>
+
+    <p class="aviso">
+      Seu pedido será enviado para confirmação.
+      A entrega, o frete e o pagamento serão combinados com a loja.
+    </p>
+  </section>
+</main>
+
+<footer>
+  🌱 Erva Verde — qualidade para seu momento de tereré.
+</footer>
+
+<script>
+// NÚMERO DO WHATSAPP DA LOJA
+const WHATSAPP = "5566992260204";
+
+const sabores = [
+  "Menta Fresca",
+  "Menta Fogo 🔥",
+  "Menta Cereja 🍒",
+  "Menta Uva 🍇",
+  "Pura Folha 🍃"
+];
+
+const tamanhos = [
+  { peso: "250 g", preco: 12.50 },
+  { peso: "500 g", preco: 25.00 },
+  { peso: "1 kg", preco: 50.00 }
+];
+
+let carrinho = [];
+
+function dinheiro(valor) {
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+}
+
+function criarProdutos() {
+  const area = document.getElementById("produtos");
+
+  area.innerHTML = sabores.map((sabor, i) => `
+    <article class="produto">
+      <h3>${sabor}</h3>
+      <p>Erva para seu momento de tereré 🌿</p>
+
+      <label for="peso${i}">Escolha o peso:</label>
+      <select id="peso${i}">
+        ${tamanhos.map((t, j) => `
+          <option value="${j}">
+            ${t.peso} — ${dinheiro(t.preco)}
+          </option>
+        `).join("")}
+      </select>
+
+      <label for="qtd${i}">Quantidade de pacotes:</label>
+      <input id="qtd${i}" type="number"
+        min="1" step="1" value="1">
+
+      <button class="adicionar" type="button"
+        onclick="adicionar(${i})">
+        Adicionar ao carrinho +
+      </button>
+    </article>
+  `).join("");
+}
+
+function adicionar(indice) {
+  const pesoEscolhido = Number(
+    document.getElementById("peso" + indice).value
+  );
+
+  const quantidade = Number(
+    document.getElementById("qtd" + indice).value
+  );
+
+  if (!Number.isInteger(quantidade) || quantidade < 1) {
+    alert("Digite uma quantidade válida.");
+    return;
+  }
+
+  const sabor = sabores[indice];
+  const tamanho = tamanhos[pesoEscolhido];
+
+  const existente = carrinho.find(item =>
+    item.sabor === sabor && item.peso === tamanho.peso
+  );
+
+  if (existente) {
+    existente.quantidade += quantidade;
+  } else {
+    carrinho.push({
+      sabor,
+      peso: tamanho.peso,
+      preco: tamanho.preco,
+      quantidade
+    });
+  }
+
+  mostrarCarrinho();
+  document.getElementById("qtd" + indice).value = 1;
+}
+
+function mostrarCarrinho() {
+  const area = document.getElementById("itens");
+  let total = 0;
+
+  if (carrinho.length === 0) {
+    area.textContent = "Seu carrinho está vazio.";
+  } else {
+    area.innerHTML = carrinho.map((item, i) => {
+      const subtotal = item.preco * item.quantidade;
+      total += subtotal;
+
+      return `
+        <div class="item-carrinho">
+          <strong>${item.sabor}</strong><br>
+          Peso: ${item.peso}<br>
+          Quantidade: ${item.quantidade}<br>
+          Subtotal: ${dinheiro(subtotal)}<br>
+          <button type="button" onclick="remover(${i})">
+            Remover item
+          </button>
+        </div>
+      `;
+    }).join("");
+  }
+
+  document.getElementById("total").textContent = dinheiro(total);
+}
+
+function remover(indice) {
+  carrinho.splice(indice, 1);
+  mostrarCarrinho();
+}
+
+function limparCarrinho() {
+  carrinho = [];
+  mostrarCarrinho();
+}
+
+// Mostra os campos de endereço apenas para entrega
+const modalidade = document.getElementById("modalidade");
+const camposEntrega = document.getElementById("camposEntrega");
+const bairro = document.getElementById("bairro");
+const endereco = document.getElementById("endereco");
+
+function atualizarEntrega() {
+  const entrega = modalidade.value === "Entrega";
+
+  camposEntrega.hidden = !entrega;
+  bairro.required = entrega;
+  endereco.required = entrega;
+}
+
+modalidade.addEventListener("change", atualizarEntrega);
+atualizarEntrega();
+
+// Mostra o campo de troco somente se pagar em dinheiro
+const pagamento = document.getElementById("pagamento");
+const campoTroco = document.getElementById("campoTroco");
+
+pagamento.addEventListener("change", function() {
+  campoTroco.hidden = pagamento.value !== "Dinheiro";
+});
+
+document.getElementById("formPedido").addEventListener(
+  "submit",
+  function(event) {
+    event.preventDefault();
+
+    if (carrinho.length === 0) {
+      alert("Adicione pelo menos um produto ao carrinho.");
+      return;
+    }
+
+    if (!/^55\d{10,11}$/.test(WHATSAPP)) {
+      alert("Confira o número do WhatsApp no código.");
+      return;
+    }
+
+    const nome = document.getElementById("nome").value.trim();
+    const cidade = document.getElementById("cidade").value.trim();
+    const formaEntrega = modalidade.value;
+    const formaPagamento = pagamento.value;
+    const observacoes =
+      document.getElementById("observacoes").value.trim();
+
+    if (!nome || !cidade) {
+      alert("Preencha seu nome e sua cidade.");
+      return;
+    }
+
+    if (formaEntrega === "Entrega" &&
+        (!bairro.value.trim() || !endereco.value.trim())) {
+      alert("Preencha o bairro e o endereço para a entrega.");
+      return;
+    }
+
+    let total = 0;
+
+    const linhas = carrinho.map(item => {
+      const subtotal = item.preco * item.quantidade;
+      total += subtotal;
+
+      return `• ${item.sabor} — ${item.peso} x ${item.quantidade}: ${dinheiro(subtotal)}`;
+    });
+
+    const troco = formaPagamento === "Dinheiro"
+      ? document.getElementById("troco").value
+      : "Não se aplica";
+
+    const mensagem =
+      "🌿 *PEDIDO — ERVA VERDE* 🌿\n\n" +
+      "*CLIENTE*\n" +
+      "Nome: " + nome + "\n" +
+      "Cidade: " + cidade + "\n\n" +
+      "*PRODUTOS*\n" + linhas.join("\n") + "\n\n" +
+      "*Total dos produtos: " + dinheiro(total) + "*\n\n" +
+      "*RECEBIMENTO*\n" +
+      "Modalidade: " + formaEntrega + "\n" +
+      (formaEntrega === "Entrega"
+        ? "Bairro: " + bairro.value.trim() + "\n" +
+          "Endereço: " + endereco.value.trim() + "\n"
+        : "") +
+      "\n*PAGAMENTO*\n" +
+      "Forma: " + formaPagamento + "\n" +
+      (formaPagamento === "Dinheiro"
+        ? "Troco: " + troco + "\n"
+        : "Pagamento via Pix a combinar com a loja.\n") +
+      (observacoes ? "\nObservações: " + observacoes + "\n" : "") +
+      "\nOlá! Gostaria de confirmar este pedido.";
+
+    const url = "https://wa.me/" + WHATSAPP +
+      "?text=" + encodeURIComponent(mensagem);
+
+    window.open(url, "_blank");
+  }
+);
+
+criarProdutos();
+mostrarCarrinho();
+</script>
+
+</body>
+</html>
